@@ -1,0 +1,21 @@
+ol{
+  list-style: none;
+  background-color: #c6979778;
+  overflow: scroll;
+  height: 10rem;
+  padding: 10px;
+}
+ol li {
+  display: block;
+  padding: 8px;
+}
+ol li span{
+  display: inline-block;
+  padding: 5px;
+}
+ol li:nth-child(even){
+  background-color: #1e9b1ed9;
+}
+ol li:nth-child(odd){
+  background-color: #788e89ab;
+}

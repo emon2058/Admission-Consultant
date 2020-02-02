@@ -12,10 +12,11 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
-var db=firebase.firestore();
-const list=document.querySelector('#list');
+var db = firebase.firestore();
+const list = document.querySelector('#List');
 const form = document.querySelector('#data-form');
-//create element and render cafe
+
+//create element and render list
 function renderList(doc){
 let li = document.createElement('li');
 let rank = document.createElement('span');
@@ -23,43 +24,42 @@ let code = document.createElement('span');
 let name = document.createElement('span');
 let division = document.createElement('span');
 let district = document.createElement('span');
-let address = document.createElement('span');
+let location = document.createElement('span');
 let contact = document.createElement('span');
 let email = document.createElement('span');
-let location = document.createElement('span');
+let  image= document.createElement('span');
 let circular = document.createElement('span');
-let general = document.createElement('span');
+let seat = document.createElement('span');
 
 li.setAttribute('data-id',doc.id);
-rank.textContent = doc.data().rank;
-code.textContent = doc.data().code;
-name.textContent = doc.data().name;
-division.textContent = doc.data().division;
-district.textContent = doc.data().district;
-address.textContent = doc.data().address;
-contact.textContent = doc.data().contact;
-email.textContent = doc.data().email;
-location.textContent = doc.data().location;
-circular.textContent = doc.data().circular;
-general.textContent = doc.data().general;
+rank.textContent = doc.data().Rank;
+code.textContent = doc.data().Code;
+name.textContent = doc.data().Name;
+division.textContent = doc.data().Division;
+district.textContent = doc.data().District;
+location.textContent = doc.data().Location;
+contact.textContent = doc.data().Contact;
+email.textContent = doc.data().Email;
+image.textContent = doc.data().ImageLink;
+circular.textContent = doc.data().Circular;
+seat.textContent = doc.data().SeatPlan;
 
 li.appendChild(rank);
 li.appendChild(code);
 li.appendChild(name);
 li.appendChild(division);
 li.appendChild(district);
-li.appendChild(address);
+li.appendChild(location);
 li.appendChild(contact);
 li.appendChild(email);
-li.appendChild(location);
+li.appendChild(image);
 li.appendChild(circular);
-li.appendChild(general);
+li.appendChild(seat);
 
 list.appendChild(li);
 }
-//getting data
-db.collection('general').get().then((snapshot) => {
-snapshot.docs.forEach(doc => {
+db.collection('General').get().then((snapshot1) => {
+snapshot1.docs.forEach(doc => {
   renderList(doc);
 })
 })
@@ -67,18 +67,18 @@ snapshot.docs.forEach(doc => {
 //saving data
 form.addEventListener('submit',(e) => {
 e.preventDefault();//when we add data then web page don't refresh
-db.collection('general').doc(form.code.value).set({
-  rank:form.rank.value,
-  code:form.code.value,
-  name:form.name.value,
-  division:form.division.value,
-  district:form.district.value,
-  address:form.address.value,
+db.collection('General').doc(form.code.value).set({
+  Rank:form.rank.value,
+  Code:form.code.value,
+  Name:form.name.value,
+  Division:form.division.value,
+  District:form.district.value,
+  Location:form.location.value,
   contact:form.contact.value,
   email:form.email.value,
-  location:form.location.value,
+  ImageLink:form.image.value,
   circular:form.circular.value,
-  general:form.general.value
+  SeatPlan:form.seat.value
 })
 form.rank.value='';
 form.code.value='';

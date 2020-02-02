@@ -19,3 +19,6 @@ ol li:nth-child(even){
 ol li:nth-child(odd){
   background-color: #788e89ab;
 }
+input{
+  border:2.5px solid #17ac7b9c !important;
+}

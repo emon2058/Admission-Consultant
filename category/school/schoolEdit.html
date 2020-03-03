@@ -66,7 +66,8 @@
 </head>
 
 <body>
-  <script>
+  <script type="module">
+    import {searching} from './schoolEdit.js';
     (async () => {
       const { value: Code } = await Swal.fire({
         title: 'Enter your institute code',
@@ -246,7 +247,8 @@
   <br>
   <!-- display the value in the browser -->
   <ol id="List"></ol>
-  <script src="schoolEdit.js"></script>
+  <script type="module" src="schoolEdit.js"></script>
+  <script type="module" src="../../Config/FirebaseConfig.js"></script>
 </body>
 
 </html>

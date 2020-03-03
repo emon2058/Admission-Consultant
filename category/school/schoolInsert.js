@@ -1,4 +1,4 @@
-// Your web app's Firebase configuration
+// Firebase configuration
 import {firebaseConfig} from '../../Config/FirebaseConfig.js'
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);

@@ -17,65 +17,65 @@ var db = firebase.firestore();
 const list = document.querySelector('#List');
 
 //create element and render list
-function renderList(doc){
-let li = document.createElement('li');
-let code = document.createElement('span');
-let name = document.createElement('span');
-let shift = document.createElement('span');
-let time = document.createElement('span');
-let date = document.createElement('span');
-let cross = document.createElement('div');
+function renderList(doc) {
+  let li = document.createElement('li');
+  let code = document.createElement('span');
+  let name = document.createElement('span');
+  let shift = document.createElement('span');
+  let time = document.createElement('span');
+  let date = document.createElement('span');
+  let cross = document.createElement('div');
 
-//set the value
-li.setAttribute('data-id',doc.id);
-code.textContent = doc.data().Code;
-name.textContent = doc.data().Name;
-shift.textContent = doc.data().Shift;
-time.textContent = doc.data().Time;
-date.textContent = doc.data().Date;
-cross.textContent = 'Delete'; 
-//listed the value
-li.appendChild(code);
-li.appendChild(name);
-li.appendChild(shift);
-li.appendChild(time);
-li.appendChild(date);
-li.appendChild(cross);
+  //set the value
+  li.setAttribute('data-id', doc.id);
+  code.textContent = doc.data().Code;
+  name.textContent = doc.data().Name;
+  shift.textContent = doc.data().Shift;
+  time.textContent = doc.data().Time;
+  date.textContent = doc.data().Date;
+  cross.textContent = 'Delete';
+  //listed the value
+  li.appendChild(code);
+  li.appendChild(name);
+  li.appendChild(shift);
+  li.appendChild(time);
+  li.appendChild(date);
+  li.appendChild(cross);
 
-list.appendChild(li);
-// deleting data
-cross.addEventListener('click', (e) => {
+  list.appendChild(li);
+  // deleting data
+  cross.addEventListener('click', (e) => {
     e.stopPropagation();
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-          if (result.value) {
-            let id = e.target.parentElement.getAttribute('data-id'); // Getting id by clicked item
-             db.collection('University Exam').doc(id).delete().then(function() {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        let id = e.target.parentElement.getAttribute('data-id'); // Getting id by clicked item
+        db.collection('University Exam').doc(id).delete().then(function () {
 
-                // Deleting target item from list
-                list.removeChild(e.target.parentElement);
-            }).catch(function(error) {
-                console.error("Error removing document: ", error);
-            });
-             Swal.fire(
-              'Deleted!',
-              'Your file has been deleted.',
-              'success'
-            )
-          }
-        })
-      });
+          // Deleting target item from list
+          list.removeChild(e.target.parentElement);
+        }).catch(function (error) {
+          console.error("Error removing document: ", error);
+        });
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
+  });
 }
- // show all value from firestore
+// show all value from firestore
 db.collection('University Exam').get().then((snapshot) => {
-snapshot.docs.forEach(doc => {
-  renderList(doc);
+  snapshot.docs.forEach(doc => {
+    renderList(doc);
   })
 })

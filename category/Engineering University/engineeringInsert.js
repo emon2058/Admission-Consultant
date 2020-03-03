@@ -11,26 +11,27 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
-var db = firebase.firestore();
-const list = document.querySelector('#List');
+//firebase.analytics();
+var db=firebase.firestore();
+
+const list=document.querySelector('#List');
 const form = document.querySelector('#data-form');
 
 //create element and render list
 function renderList(doc){
-let li = document.createElement('li');
-let rank = document.createElement('span');
-let code = document.createElement('span');
-let name = document.createElement('span');
-let division = document.createElement('span');
-let district = document.createElement('span');
-let location = document.createElement('span');
-let contact = document.createElement('span');
-let email = document.createElement('span');
-let  image= document.createElement('span');
-let circular = document.createElement('span');
-let seat = document.createElement('span');
-
+  let li = document.createElement('li');
+  let rank = document.createElement('span');
+  let code = document.createElement('span');
+  let name = document.createElement('span');
+  let division = document.createElement('span');
+  let district = document.createElement('span');
+  let location = document.createElement('span');
+  let contact = document.createElement('span');
+  let email = document.createElement('span');
+  let  image= document.createElement('span');
+  let circular = document.createElement('span');
+  let seat = document.createElement('span');
+//get the data value individually
 li.setAttribute('data-id',doc.id);
 rank.textContent = doc.data().Rank;
 code.textContent = doc.data().Code;
@@ -43,7 +44,7 @@ email.textContent = doc.data().Email;
 image.textContent = doc.data().ImageLink;
 circular.textContent = doc.data().Circular;
 seat.textContent = doc.data().SeatPlan;
-
+//The data will be listed below
 li.appendChild(rank);
 li.appendChild(code);
 li.appendChild(name);
@@ -58,28 +59,37 @@ li.appendChild(seat);
 
 list.appendChild(li);
 }
-db.collection('General').get().then((snapshot1) => {
-snapshot1.docs.forEach(doc => {
+//get all data from firestore
+db.collection('Engineering').get().then((snapshot)=>{
+snapshot.docs.forEach(doc => {
   renderList(doc);
 })
 })
 
-//saving data
+//save the data in firestore
 form.addEventListener('submit',(e) => {
+  //confirmation message
+  Swal.fire({
+   icon: 'success',
+   title: 'Successfully inserted',
+   showConfirmButton: false,
+   timer: 2000
+  })
 e.preventDefault();//when we add data then web page don't refresh
-db.collection('General').doc(form.code.value).set({
+db.collection('Engineering').doc(form.code.value).set({
   Rank:form.rank.value,
   Code:form.code.value,
   Name:form.name.value,
   Division:form.division.value,
   District:form.district.value,
   Location:form.location.value,
-  contact:form.contact.value,
-  email:form.email.value,
+  Contact:form.contact.value,
+  Email:form.email.value,
   ImageLink:form.image.value,
-  circular:form.circular.value,
+  Circular:form.circular.value,
   SeatPlan:form.seat.value
 })
+//when submit the button then this field will be blank
 form.rank.value='';
 form.code.value='';
 form.name.value='';

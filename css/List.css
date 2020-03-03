@@ -2,12 +2,13 @@ ol{
   list-style: none;
   background-color: #c6979778;
   overflow: scroll;
-  height: 10rem;
+  height: 223px;
   padding: 10px;
 }
 ol li {
   display: block;
   padding: 8px;
+  position: relative;
 }
 ol li span{
   display: inline-block;
@@ -21,4 +22,16 @@ ol li:nth-child(odd){
 }
 input{
   border:2.5px solid #17ac7b9c !important;
+}
+li div{
+    position: absolute;
+    top: 0;
+    right: 0px;
+    background: rgb(219, 29, 29);
+    color: #fff;
+    width: 55px;
+    text-align: center;
+    padding: 12px 0;
+    font-weight:  bold;
+    cursor:  pointer;
 }

@@ -15,6 +15,7 @@ firebase.analytics();
 var db=firebase.firestore();
 const list=document.querySelector('#List');
 const form = document.querySelector('#data-form');
+
 //create element and render list
 function renderList(doc){
   let li = document.createElement('li');
@@ -29,7 +30,7 @@ function renderList(doc){
   let  image= document.createElement('span');
   let circular = document.createElement('span');
   let seat = document.createElement('span');
-
+//get the data value individually
 li.setAttribute('data-id',doc.id);
 rank.textContent = doc.data().Rank;
 code.textContent = doc.data().Code;
@@ -42,7 +43,7 @@ email.textContent = doc.data().Email;
 image.textContent = doc.data().ImageLink;
 circular.textContent = doc.data().Circular;
 seat.textContent = doc.data().SeatPlan;
-
+//The data will be listed below
 li.appendChild(rank);
 li.appendChild(code);
 li.appendChild(name);
@@ -57,14 +58,22 @@ li.appendChild(seat);
 
 list.appendChild(li);
 }
-db.collection('College').get().then((snapshot) => {
+//get all data from firestore
+db.collection('College').get().then((snapshot)=>{
 snapshot.docs.forEach(doc => {
   renderList(doc);
 })
 })
 
-//saving data
+//save the data in firestore
 form.addEventListener('submit',(e) => {
+  //confirmation message
+  Swal.fire({
+   icon: 'success',
+   title: 'Successfully inserted',
+   showConfirmButton: false,
+   timer: 2000
+  })
 e.preventDefault();//when we add data then web page don't refresh
 db.collection('College').doc(form.code.value).set({
   Rank:form.rank.value,
@@ -79,6 +88,7 @@ db.collection('College').doc(form.code.value).set({
   Circular:form.circular.value,
   SeatPlan:form.seat.value
 })
+//when submit the button then this field will be blank
 form.rank.value='';
 form.code.value='';
 form.name.value='';

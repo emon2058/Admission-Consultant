@@ -2,8 +2,11 @@
 	margin: 0;
 	padding: 0;
 }
+title{
+	img: url("../image/Logo.png")
+}
 body {
-	background-image: url("../image/Admission Consultant3.jpg");
+	background-image: url("../image/Admission Consultant.jpg");
 	background-size: 100% 100%;
 	background-attachment: fixed;
 	height: 680px;

@@ -26,6 +26,10 @@
   <title>College</title>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
+  
+  <script type="module" src="collegeEdit.js"></script>
+  <script type="module" src="../../Config/FirebaseConfig.js"></script>
+
   <link rel="stylesheet" type="text/css" href="../../css/List.css">
   <style>
     select {
@@ -66,7 +70,8 @@
 </head>
 
 <body>
-  <script>
+  <script type="module">
+    import {searching} from './collegeEdit.js';
     (async () => {
       const { value: Code } = await Swal.fire({
         title: 'Enter your institute code',
@@ -246,7 +251,6 @@
   <br>
   <!-- display the value in the browser -->
   <ol id="List"></ol>
-  <script src="collegeEdit.js"></script>
 </body>
 
 </html>

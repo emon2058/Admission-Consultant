@@ -23,6 +23,11 @@
   <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-analytics.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
+
+  
+  <script type="module" src="generalEdit.js"></script>
+  <script type="module" src="../../Config/FirebaseConfig.js"></script>
+
   <title>General University</title>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
@@ -66,7 +71,8 @@
 </head>
 
 <body>
-  <script>
+  <script type="module">
+    import {searching} from './generalEdit.js';
     (async () => {
       const { value: Code } = await Swal.fire({
         title: 'Enter your institute code',
@@ -246,7 +252,6 @@
   <br>
   <!-- display the value in the browser -->
   <ol id="List"></ol>
-  <script src="generalEdit.js"></script>
 </body>
 
 </html>

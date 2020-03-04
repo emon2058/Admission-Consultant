@@ -1,14 +1,6 @@
-// Your web app's Firebase configuration
-var firebaseConfig = {
-  apiKey: "AIzaSyDlESaTQUPM3rRX_BBLLihLfVf3UEEfBmc",
-  authDomain: "admission-consultant-c9db1.firebaseapp.com",
-  databaseURL: "https://admission-consultant-c9db1.firebaseio.com",
-  projectId: "admission-consultant-c9db1",
-  storageBucket: "admission-consultant-c9db1.appspot.com",
-  messagingSenderId: "1006379150064",
-  appId: "1:1006379150064:web:2d4cb80711383179ef7035",
-  measurementId: "G-P82D3N1F4K"
-};
+// Firebase configuration
+import {firebaseConfig} from '../../Config/FirebaseConfig.js'
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
@@ -17,7 +9,7 @@ const form = document.querySelector('#data-form');
 
 document.getElementById("Show").style.visibility = 'hidden'; //hide form field
 
-function searching(code) {
+export function searching(code) {
   //getting search document and show its value
   db.collection('Engineering').doc(code).get().then(function (doc) {
     if (doc.exists) {

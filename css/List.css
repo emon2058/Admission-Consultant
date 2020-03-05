@@ -76,3 +76,34 @@ li div {
   font-weight: bold;
   cursor: pointer;
 }
+
+/* Table styles */
+.table-div{
+  align-self: center;
+  
+}
+table {
+  border-collapse: collapse;
+  width: 98%;
+}
+td, th {
+  border: 1px, solid #04bd7f9c;
+  padding: 8px;
+}
+th {
+  font-weight: bold;
+  /* border: solid #04bd7f9c; */
+  border-radius: 10px;
+  background-color: black;
+  color: rgb(0, 252, 210);
+  text-align: center;
+}
+tr:hover {
+  background-color: rgb(208, 250, 255);
+}
+
+.list-value {
+  padding: 5px;
+  border-radius: 5px;
+  width: 100%;
+}

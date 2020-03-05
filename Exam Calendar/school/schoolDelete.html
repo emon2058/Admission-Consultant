@@ -24,6 +24,9 @@
   <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
 
+  <!-- sweetalert2 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
   <script type="module" src="schoolDelete.js"></script>
   <script type="module" src="../../Config/FirebaseConfig.js"></script>
 
@@ -124,11 +127,31 @@
           </ul>
         </div>
   </nav>
-  <div class="container">
-    <!-- display the value in the browser -->
-    <ol id="List" style="height:auto;"></ol>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+</br>
+<script type="module">
+  import {sortByCode} from './schoolDelete.js';
+  document.getElementById('code')
+  .addEventListener('click', (e)=>{
+    sortByCode()
+  });
+</script>
+<center>
+  <table>
+    <thead>
+      <tr>
+        <th>Calendar ID</th>
+        <th id="code" onclick="click">Code</th>
+        <th>Name</th>
+        <th>Shift</th>
+        <th>Date</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody id="schoolCalendarList"></tbody>
+  </table>
+</center>
+
+  
 </body>
 
 </html>

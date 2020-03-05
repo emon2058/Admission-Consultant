@@ -76,3 +76,40 @@ db.collection('School Exam').get().then((snapshot) => {
     renderList(doc);
   })
 })
+let sortDirection = false;
+let tableData = [
+  {id: '1a', code: '1', name: 'Shuvo', shift: 'a', date: '05-03-2020', time: '00.00'},
+  {id: '1d', code: '2', name: 'Hasibul', shift: 'd', date: '06-03-2020', time: '01.00'}
+];
+loadTableData(tableData);
+function loadTableData(tableData) {
+  const tableBody = document.getElementById('schoolCalendarList');
+  let dataHtml = '';
+
+  for(let data of tableData) {
+    dataHtml += '<tr><td><input class="list-value" value="'+ data.id+ 
+    '"></td><td><input class="list-value" value="' + data.code + 
+    '"></td><td><input class="list-value" value="' + data.name +
+    '"></td><td><input class="list-value" value="' + data.shift + 
+    '"></td><td><input class="list-value" value="' + data.date +
+    '"></td><td><input class="list-value" value="' + data.time +
+    '"></td></tr>';
+    
+  }
+
+  console.log(dataHtml);
+  tableBody.innerHTML = dataHtml;
+}
+
+export function sortByCode() {
+  let columnName = 'code'
+  sortDirection = !sortDirection;
+
+  console.log(columnName);
+
+  tableData = tableData.sort((p1, p2) => {
+    return sortDirection ? p1[columnName] - p2[columnName]:
+    p2[columnName] - p1[columnName]
+  });
+  loadTableData(tableData);
+}

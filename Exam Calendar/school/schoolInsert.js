@@ -47,7 +47,7 @@ form.addEventListener('submit', (e) => {
   })
   e.preventDefault();//when we add data then web page don't refresh
   var id = form.code.value + form.shift.value;
-  console.log(code);
+  console.log(id);
 
   //Inserted data
   db.collection('School Exam').doc(id).set({

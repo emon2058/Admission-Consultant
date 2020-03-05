@@ -11,6 +11,7 @@ const list = document.querySelector('#List');
 //create element and render list
 function renderList(doc) {
   let li = document.createElement('li');
+  let id = document.createElement('span');
   let code = document.createElement('span');
   let name = document.createElement('span');
   let shift = document.createElement('span');
@@ -20,6 +21,7 @@ function renderList(doc) {
 
   //set the value
   li.setAttribute('data-id', doc.id);
+  id.textContent = doc.data().Id;
   code.textContent = doc.data().Code;
   name.textContent = doc.data().Name;
   shift.textContent = doc.data().Shift;
@@ -27,6 +29,7 @@ function renderList(doc) {
   date.textContent = doc.data().Date;
   cross.textContent = 'Delete';
   //listed the value
+  li.appendChild(id);
   li.appendChild(code);
   li.appendChild(name);
   li.appendChild(shift);

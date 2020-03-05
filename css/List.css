@@ -80,7 +80,10 @@ li div {
 /* Table styles */
 .table-div{
   align-self: center;
-  
+
+}
+nav{
+  font-weight: bold;
 }
 table {
   border-collapse: collapse;

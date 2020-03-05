@@ -2,6 +2,9 @@
 	margin: 0;
 	padding: 0;
 }
+nav{
+  font-weight: bold;
+}
 title{
 	img: url("../image/Logo.png")
 }

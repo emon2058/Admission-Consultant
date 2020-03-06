@@ -21,15 +21,26 @@ function renderList(doc) {
   tableData.push(values);
   //  console.log(values);
 }
-// show all value from firestore
-db.collection('School Exam').get().then((snapshot) => {
-  snapshot.docs.forEach(doc => {
-    renderList(doc);
+
+
+db.collection('School Exam').orderBy('Code', 'asc').onSnapshot(snapshot => {
+  let changes = snapshot.docChanges();
+  changes.forEach(change => {
+    console.log(change.doc.data());
+    if (change.type == 'added') {
+      renderList(change.doc);
+    } else if(change.type == 'removed') {
+      let index = 0;
+      for(let data of tableData) {
+        if(data == change.doc.data()) {
+          console.log(index);
+        }
+      }
+    }
   });
 
   loadTableData(tableData);
-})
-
+});
 // Adding data into table
 function loadTableData(tableData) {
   const tableBody = document.getElementById('schoolCalendarList');
@@ -83,6 +94,7 @@ function remove(index, value) {
     console.error("Error removing document: ", error);
   });
 }
+
 
 // Sorting data by code
 export function sortByCode() {

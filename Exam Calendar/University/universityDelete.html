@@ -24,6 +24,9 @@
   <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
 
+  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 
   <script type="module" src="universityDelete.js"></script>
   <script type="module" src="../../Config/FirebaseConfig.js"></script>
@@ -125,11 +128,30 @@
           </ul>
         </div>
   </nav>
-  <div class="container">
-    <!-- display the value in the browser -->
-    <ol id="List" style="height:auto;"></ol>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+</br>
+  <script type="module">
+    import {sortByCode} from './universityDelete.js';
+    document.getElementById('code')
+    .addEventListener('click', (e)=>{
+      sortByCode()
+    });
+  </script>
+  <center>
+    <table id="table">
+      <thead>
+        <tr>
+          <th>Calendar ID</th>
+          <th id="code" onclick="click" style="cursor:pointer;">Code</th>
+          <th>Name</th>
+          <th>Shift</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th style="width: 30px;">Delete</th>
+        </tr>
+      </thead>
+      <tbody id="universityCalendarList"></tbody>
+    </table>
+  </center>
 </body>
 
 </html>

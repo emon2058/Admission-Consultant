@@ -36,8 +36,6 @@ db.collection('School Exam').orderBy('Code', 'asc').onSnapshot(snapshot => {
         if (data.Id == change.doc.data().Id) {
           console.log("Removed ", index);
           tableData.splice(index, 1);
-          console.log(tableData);
-          loadTableData(tableData);
           break;
         }
         index++;
@@ -49,8 +47,6 @@ db.collection('School Exam').orderBy('Code', 'asc').onSnapshot(snapshot => {
         if (data.Id == change.doc.data().Id) {
           console.log("Modified ", index);
           tableData[index] = change.doc.data();
-          console.log(tableData);
-          loadTableData(tableData);
           break;
         }
         index++;
@@ -99,13 +95,6 @@ function setEventListener() {
 
 function remove(index, value) {
   console.log(value);
-  // const swalWithBootstrapButtons = Swal.mixin({
-  //   customClass: {
-  //     confirmButton: 'btn btn-success',
-  //     cancelButton: 'btn btn-danger'
-  //   },
-  //   buttonsStyling: false
-  // })
 
   Swal.fire({
     title: 'Are you sure?',

@@ -84,7 +84,7 @@ export function searching(code) {
     list.appendChild(li);
   }
   //getting all collection
-  db.collection('Agricultar').get().then((snapshot) => {
+  db.collection('Agriculture').get().then((snapshot) => {
     snapshot.docs.forEach(doc => {
       renderList(doc);
     })
@@ -101,7 +101,7 @@ form.addEventListener('submit', (e) => {
   })
   e.preventDefault();//when we add data then web page don't refresh
   //update data in firestore
-  db.collection('Agricultar').doc(form.code.value).update({
+  db.collection('Agriculture').doc(form.code.value).update({
     Rank: form.rank.value,
     Code: form.code.value,
     Name: form.name.value,

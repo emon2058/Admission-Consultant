@@ -14,57 +14,71 @@ let tableData = [];
 function renderList(doc) {
 
   var values = {
-    rank: doc.data().Rank, code: doc.data().Code, name: doc.data().Name, division: doc.data().Division,
-    district: doc.data().District, location: doc.data().Location, contact:doc.data().Contact,
-    email: doc.data().Email, image: doc.data().ImageLink,circular:doc.data().Circular, seat:doc.data().SeatPlan
+    Rank: doc.data().Rank, Code: doc.data().Code, Name: doc.data().Name, Division: doc.data().Division,
+    District: doc.data().District, Location: doc.data().Location, Contact: doc.data().Contact,
+    Email: doc.data().Email,Image:doc.data().ImageLink,Circular:doc.data().Circular,Seat:doc.data().SeatPlan
   };
 
   tableData.push(values);
   //  console.log(values);
 }
 
-
+// Realtime data fetching
 db.collection('Engineering').orderBy('Code', 'asc').onSnapshot(snapshot => {
   let changes = snapshot.docChanges();
   changes.forEach(change => {
     console.log(change.doc.data());
-    if (change.type === 'added') {
+    if (change.type === 'added') { // If data is added
       renderList(change.doc);
-    } else if(change.type === 'removed') {
+    } else if (change.type === "removed") { // If data is removed
+      console.log(change.doc.data().Code);
       let index = 0;
-      for(let data of tableData) {
-        if(data === change.doc.data()) {
-          console.log(index);
+      for (let data of tableData) {
+        if (data.Code == change.doc.data().Code) {
+          console.log("Removed ", index);
+          tableData.splice(index, 1);
+          break;
         }
+        index++;
+      }
+    } else if (change.type === "modified") { // If data is modified
+      console.log(change.doc.data().Code);
+      let index = 0;
+      for (let data of tableData) {
+        if (data.Code == change.doc.data().Code) {
+          console.log("Modified ", index);
+          tableData[index] = change.doc.data();
+          break;
+        }
+        index++;
       }
     }
   });
 
   loadTableData(tableData);
 });
+
 // Adding data into table
 function loadTableData(tableData) {
   const tableBody = document.getElementById('engineeringList');
   let dataHtml = '';
   let index = 0;
   for (let data of tableData) {
-    dataHtml += '<tr><td><input class="list-value" value="' + data.rank +
-      '"></td><td><input class="list-value" value="' + data.code +
-      '"></td><td><input class="list-value" value="' + data.name +
-      '"></td><td><input class="list-value" value="' + data.division +
-      '"></td><td><input class="list-value" value="' + data.district +
-      '"></td><td><input class="list-value" value="' + data.location +
-      '"></td><td><input class="list-value" value="' + data.location +
-      '"></td><td><input class="list-value" value="' + data.contact +
-      '"></td><td><input class="list-value" value="' + data.email +
-      '"></td><td><input class="list-value" value="' + data.image +
-      '"></td><td><input class="list-value" value="' + data.circular +
-      '"></td><td><input class="list-value" value="' + data.seat +
+    dataHtml += '<tr><td><input class="list-value" value="' + data.Rank +
+      '"></td><td><input class="list-value" value="' + data.Code +
+      '"></td><td><input class="list-value" value="' + data.Name +
+      '"></td><td><input class="list-value" value="' + data.Division +
+      '"></td><td><input class="list-value" value="' + data.District +
+      '"></td><td><input class="list-value" value="' + data.Location +
+      '"></td><td><input class="list-value" value="' + data.Contact +
+      '"></td><td><input class="list-value" value="' + data.Email +
+      '"></td><td><input class="list-value" value="' + data.Image +
+      '"></td><td><input class="list-value" value="' + data.Circular +
+      '"></td><td><input class="list-value" value="' + data.Seat +
       '"></td><td><center><img id="removeId' + index + '" style="height: 25px; cursor:pointer;" src="../../image/delete.png"' +
       '></center></td></tr>';
     index++;
   }
-
   tableBody.innerHTML = dataHtml;
 
   // Setting event listener for each item
@@ -86,26 +100,54 @@ function setEventListener() {
 }
 
 function remove(index, value) {
-  console.log(index);
   console.log(value);
-  // Deleting from database
-  db.collection('Engineering').doc(value.id).delete().then(function () {
-    Swal.fire(
-      'Deleted!',
-      'Your file has been deleted.',
-      'success'
-    )
-    tableData.splice(index, 1);
-    loadTableData(tableData);
-  }).catch(function (error) {
-    console.error("Error removing document: ", error);
+
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'No, cancel!',
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#01D307',
+    reverseButtons: true
+  }).then((result) => {
+    if (result.value) {
+
+      // Deleting from database
+      db.collection('Engineering').doc(value.Code).delete().then(function () {
+
+        //confirmation message
+        Swal.fire({
+          icon: 'success',
+          title: 'Successfully deleted',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }).catch(function (error) {
+        console.error("Error removing document: ", error);
+      });
+    } else if (
+      /* Read more about handling dismissals below */
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      //confirmation message
+      Swal.fire({
+        icon: 'error',
+        title: 'Cancelled!',
+        text: 'Your imaginary file is safe :)',
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
   });
 }
 
 
 // Sorting data by code
 export function sortByCode() {
-  let columnName = 'code'
+  let columnName = 'Code'
   sortDirection = !sortDirection;
 
   console.log(columnName);

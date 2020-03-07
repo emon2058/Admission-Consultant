@@ -27,10 +27,10 @@
   <!-- sweetalert2 CDN -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
-  <script type="module" src="schoolList.js"></script>
+  <script type="module" src="engineeringList.js"></script>
   <script type="module" src="../../Config/FirebaseConfig.js"></script>
 
-  <title>School</title>
+  <title>Engineering University</title>
   <link rel="icon" href="../../image/Logo.png" type="image/png">
   <link rel="stylesheet" type="text/css" href="../../css/List.css">
 </head>
@@ -38,10 +38,10 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <div class="float-left">
-          <img src="../../image/Logo.png" class="Logo" type="image/png">
-          <a class="navbar-brand" href="../../Admission Consultant.html">Admission Consultant</a>
-        </div>
+      <div class="float-left">
+        <img src="../../image/Logo.png" class="Logo" type="image/png">
+        <a class="navbar-brand" href="../../Admission Consultant.html">Admission Consultant</a>
+      </div>
       <!-- adding a button when browser width is minimixe -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,27 +61,22 @@
                   <ul class="dropdown-menu" style="min-width:7rem;">
                     <li><a class="dropdown-item" href="../../category/School/schoolInsert.html">Insert</a></li>
                     <li><a class="dropdown-item" href="../../category/School/schoolEdit.html">Edit</a></li>
-                    <li><a class="dropdown-item"
-                        href="../../category/school/schoolList.html">List</a></li>
+                    <li><a class="dropdown-item" href="../../category/school/schoolList.html">List</a></li>
                   </ul>
                 </li>
                 <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">College</a>
                   <ul class="dropdown-menu" style="min-width:7rem;">
                     <li><a class="dropdown-item" href="../../category/College/collegeInsert.html">Insert</a></li>
                     <li><a class="dropdown-item" href="../../category/College/collegeEdit.html">Edit</a></li>
-                    <li><a class="dropdown-item"
-                        href="../../category/college/collegeList.html">List</a></li>
+                    <li><a class="dropdown-item" href="../../category/college/collegeList.html">List</a></li>
                   </ul>
                 </li>
                 <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Engineering
                     University</a>
                   <ul class="dropdown-menu" style="min-width:7rem;">
-                    <li><a class="dropdown-item"
-                        href="engineeringInsert.html">Insert</a></li>
-                    <li><a class="dropdown-item"
-                        href="engineeringEdit.html">Edit</a></li>
-                    <li><a class="dropdown-item"
-                        href="engineeringList.html">List</a></li>
+                    <li><a class="dropdown-item" href="engineeringInsert.html">Insert</a></li>
+                    <li><a class="dropdown-item" href="engineeringEdit.html">Edit</a></li>
+                    <li><a class="dropdown-item" href="engineeringList.html">List</a></li>
                   </ul>
                 </li>
                 <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">General University</a>
@@ -89,8 +84,7 @@
                     <li><a class="dropdown-item" href="../../category/General University/generalInsert.html">Insert</a>
                     </li>
                     <li><a class="dropdown-item" href="../../category/General University/generalEdit.html">Edit</a></li>
-                    <li><a class="dropdown-item"
-                        href="../../category/General University/generalList.html">List</a></li>
+                    <li><a class="dropdown-item" href="../../category/General University/generalList.html">List</a></li>
                   </ul>
                 </li>
                 <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">National University</a>
@@ -99,8 +93,8 @@
                         href="../../category/National University/nationalInsert.html">Insert</a></li>
                     <li><a class="dropdown-item" href="../../category/National University/nationalEdit.html">Edit</a>
                     </li>
-                    <li><a class="dropdown-item"
-                        href="../../category/National University/nationalList.html">List</a></li>
+                    <li><a class="dropdown-item" href="../../category/National University/nationalList.html">List</a>
+                    </li>
                   </ul>
                 </li>
                 <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Agricultural
@@ -144,35 +138,36 @@
       </div>
     </div>
   </nav>
-</br>
-<script type="module">
-  import {sortByCode} from './engineeringList.js';
-  document.getElementById('code')
-  .addEventListener('click', (e)=>{
-    sortByCode()
-  });
-</script>
-<center>
-  <table id="table">
-    <thead>
-      <tr>
-        <th>Rank</th>
-        <th id="code" onclick="click" style="cursor:pointer;">Code</th>
-        <th>Name</th>
-        <th>Division</th>
-        <th>District</th>
-        <th>Location</th>
-        <th>Contact</th>
-        <th>Email</th>
-        <th>Image</th>
-        <th>Circular</th>
-        <th>Seat</th>
-        <th style="width: 30px;">Delete</th>
-      </tr>
-    </thead>
-    <tbody id="engineeringList"></tbody>
-  </table>
-</center>
+  </br>
+  <script type="module">
+    import { sortByCode } from './engineeringList.js';
+    document.getElementById('code')
+      .addEventListener('click', (e) => {
+        sortByCode()
+      });
+  </script>
+  <center>
+    <table id="table">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th id="code" onclick="click" style="cursor:pointer;">Code</th>
+          <th>Name</th>
+          <th>Division</th>
+          <th>District</th>
+          <th>Location</th>
+          <th>Contact</th>
+          <th>Email</th>
+          <th>Image</th>
+          <th>Website</th>
+          <th>Circular</th>
+          <th>Seat Plan</th>
+          <th style="width: 30px;">Delete</th>
+        </tr>
+      </thead>
+      <tbody id="instituteList"></tbody>
+    </table>
+  </center>
 
 
 </body>

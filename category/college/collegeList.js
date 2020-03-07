@@ -5,8 +5,6 @@ import { firebaseConfig } from '../../Config/FirebaseConfig.js'
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 var db = firebase.firestore();
-//get id from html file
-const list = document.querySelector('#List');
 
 let sortDirection = false;
 let tableData = [];
@@ -16,7 +14,8 @@ function renderList(doc) {
   var values = {
     Rank: doc.data().Rank, Code: doc.data().Code, Name: doc.data().Name, Division: doc.data().Division,
     District: doc.data().District, Location: doc.data().Location, Contact: doc.data().Contact,
-    Email: doc.data().Email,Image:doc.data().ImageLink,Circular:doc.data().Circular,Seat:doc.data().SeatPlan
+    Email: doc.data().Email, ImageLink: doc.data().ImageLink, Website: doc.data().Website,
+    Circular: doc.data().Circular, SeatPlan: doc.data().SeatPlan
   };
 
   tableData.push(values);
@@ -24,7 +23,7 @@ function renderList(doc) {
 }
 
 // Realtime data fetching
-db.collection('College').orderBy('Code', 'asc').onSnapshot(snapshot => {
+db.collection('College').orderBy('Code').onSnapshot(snapshot => {
   let changes = snapshot.docChanges();
   changes.forEach(change => {
     console.log(change.doc.data());
@@ -45,8 +44,8 @@ db.collection('College').orderBy('Code', 'asc').onSnapshot(snapshot => {
       console.log(change.doc.data().Code);
       let index = 0;
       for (let data of tableData) {
-        if (data.Code == change.doc.data().Code) {
-          console.log("Modified ", index);
+        if (data.Code === change.doc.data().Code) {
+          console.log(index);
           tableData[index] = change.doc.data();
           break;
         }
@@ -60,7 +59,7 @@ db.collection('College').orderBy('Code', 'asc').onSnapshot(snapshot => {
 
 // Adding data into table
 function loadTableData(tableData) {
-  const tableBody = document.getElementById('collegeList');
+  const tableBody = document.getElementById('instituteList');
   let dataHtml = '';
   let index = 0;
   for (let data of tableData) {
@@ -72,9 +71,10 @@ function loadTableData(tableData) {
       '"></td><td><input class="list-value" value="' + data.Location +
       '"></td><td><input class="list-value" value="' + data.Contact +
       '"></td><td><input class="list-value" value="' + data.Email +
-      '"></td><td><input class="list-value" value="' + data.Image +
+      '"></td><td><input class="list-value" value="' + data.ImageLink +
+      '"></td><td><input class="list-value" value="' + data.Website +
       '"></td><td><input class="list-value" value="' + data.Circular +
-      '"></td><td><input class="list-value" value="' + data.Seat +
+      '"></td><td><input class="list-value" value="' + data.SeatPlan +
       '"></td><td><center><img id="removeId' + index + '" style="height: 25px; cursor:pointer;" src="../../image/delete.png"' +
       '></center></td></tr>';
     index++;

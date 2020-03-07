@@ -38,7 +38,7 @@
 
 <body>
   <script type="module">
-    import {searching} from './engineeringEdit.js';
+    import { searching } from './engineeringEdit.js';
     (async () => {
       const { value: Code } = await Swal.fire({
         title: 'Enter your institute code',
@@ -60,10 +60,10 @@
   </script>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <div class="float-left">
-          <img src="../../image/Logo.png" class="Logo" type="image/png">
-          <a class="navbar-brand" href="../../Admission Consultant.html">Admission Consultant</a>
-        </div>
+      <div class="float-left">
+        <img src="../../image/Logo.png" class="Logo" type="image/png">
+        <a class="navbar-brand" href="../../Admission Consultant.html">Admission Consultant</a>
+      </div>
       <!-- adding a button when browser width is minimixe -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,27 +83,22 @@
                   <ul class="dropdown-menu" style="min-width:7rem;">
                     <li><a class="dropdown-item" href="../../category/School/schoolInsert.html">Insert</a></li>
                     <li><a class="dropdown-item" href="../../category/School/schoolEdit.html">Edit</a></li>
-                    <li><a class="dropdown-item"
-                        href="../../category/school/schoolList.html">List</a></li>
+                    <li><a class="dropdown-item" href="../../category/school/schoolList.html">List</a></li>
                   </ul>
                 </li>
                 <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">College</a>
                   <ul class="dropdown-menu" style="min-width:7rem;">
                     <li><a class="dropdown-item" href="../../category/College/collegeInsert.html">Insert</a></li>
                     <li><a class="dropdown-item" href="../../category/College/collegeEdit.html">Edit</a></li>
-                    <li><a class="dropdown-item"
-                        href="../../category/college/collegeList.html">List</a></li>
+                    <li><a class="dropdown-item" href="../../category/college/collegeList.html">List</a></li>
                   </ul>
                 </li>
                 <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Engineering
                     University</a>
                   <ul class="dropdown-menu" style="min-width:7rem;">
-                    <li><a class="dropdown-item"
-                        href="engineeringInsert.html">Insert</a></li>
-                    <li><a class="dropdown-item"
-                        href="engineeringEdit.html">Edit</a></li>
-                    <li><a class="dropdown-item"
-                        href="engineeringList.html">List</a></li>
+                    <li><a class="dropdown-item" href="engineeringInsert.html">Insert</a></li>
+                    <li><a class="dropdown-item" href="engineeringEdit.html">Edit</a></li>
+                    <li><a class="dropdown-item" href="engineeringList.html">List</a></li>
                   </ul>
                 </li>
                 <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">General University</a>
@@ -111,8 +106,7 @@
                     <li><a class="dropdown-item" href="../../category/General University/generalInsert.html">Insert</a>
                     </li>
                     <li><a class="dropdown-item" href="../../category/General University/generalEdit.html">Edit</a></li>
-                    <li><a class="dropdown-item"
-                        href="../../category/General University/generalList.html">List</a></li>
+                    <li><a class="dropdown-item" href="../../category/General University/generalList.html">List</a></li>
                   </ul>
                 </li>
                 <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">National University</a>
@@ -121,8 +115,8 @@
                         href="../../category/National University/nationalInsert.html">Insert</a></li>
                     <li><a class="dropdown-item" href="../../category/National University/nationalEdit.html">Edit</a>
                     </li>
-                    <li><a class="dropdown-item"
-                        href="../../category/National University/nationalList.html">List</a></li>
+                    <li><a class="dropdown-item" href="../../category/National University/nationalList.html">List</a>
+                    </li>
                   </ul>
                 </li>
                 <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Agricultural
@@ -198,13 +192,11 @@
         </div>
         <div class="form-group col-md-3">
           <label for="district">District</label>
-          <input type="text" placeholder="district" name="district" id="district" class="form-control district1"
-            required>
+          <input type="text" placeholder="district" name="district" id="district" class="form-control" required>
         </div>
         <div class="form-group col-md-6">
           <label for="location">Location</label>
-          <input type="text" class="form-control" name="location" id="location" placeholder="Institute address"
-            required>
+          <input type="text" class="form-control" name="location" id="location" placeholder="Institute map location">
         </div>
       </div>
       <div class="form-row">
@@ -218,8 +210,12 @@
         </div>
         <div class="form-group col-md-3">
           <label for="image">Image Link</label>
-          <input type="url" class="form-control" name="image" id="image">
+          <input type="text" class="form-control" name="image" id="image" placeholder="Institute logo url">
         </div>
+      </div>
+      <div class="form-group col-md-12">
+        <label for="website">Website</label>
+        <input type="url" class="form-control" name="website" id="website" placeholder="Institute website link">
       </div>
       <div class="form-row">
         <div class="form-group col-md-6">
@@ -228,13 +224,12 @@
         </div>
         <div class="form-group col-md-6">
           <label for="seat">Seat Plan</label>
-          <input type="url" class="form-control" name="seat" id="seat">
+          <input type="text" class="form-control" name="seat" id="seat">
         </div>
       </div>
       <button type="submit" class="btn btn-primary float-right" style="margin-right: 13px;">UPDATE</button>
     </form>
   </div>
-  <br>
 </body>
 
 </html>

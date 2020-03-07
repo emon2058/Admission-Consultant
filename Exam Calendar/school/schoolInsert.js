@@ -1,5 +1,5 @@
 // Firebase configuration
-import {firebaseConfig} from '../../Config/FirebaseConfig.js'
+import { firebaseConfig } from '../../Config/FirebaseConfig.js'
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -25,7 +25,7 @@ form.addEventListener('submit', (e) => {
 
   //Inserted data
   db.collection('School Exam').doc(id).set({
-    Id:id,
+    Id: id,
     Code: form.code.value,
     Name: form.name.value,
     Shift: form.shift.value,

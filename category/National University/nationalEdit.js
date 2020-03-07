@@ -1,10 +1,10 @@
 // Firebase configuration
-import {firebaseConfig} from '../../Config/FirebaseConfig.js'
+import { firebaseConfig } from '../../Config/FirebaseConfig.js'
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
-const list = document.querySelector('#List');
+
 const form = document.querySelector('#data-form');
 
 document.getElementById("Show").style.visibility = 'hidden'; //hide form field
@@ -24,6 +24,7 @@ export function searching(code) {
       document.getElementById('contact').value = doc.data().Contact;
       document.getElementById('email').value = doc.data().Email;
       document.getElementById('image').value = doc.data().ImageLink;
+      document.getElementById('website').value = doc.data().Website;
       document.getElementById('circular').value = doc.data().Circular;
       document.getElementById('seat').value = doc.data().SeatPlan;
     }
@@ -40,54 +41,6 @@ export function searching(code) {
       })
     }
   })
-  //create element and render list
-  function renderList(doc) {
-    let li = document.createElement('li');
-    let rank = document.createElement('span');
-    let code = document.createElement('span');
-    let name = document.createElement('span');
-    let division = document.createElement('span');
-    let district = document.createElement('span');
-    let location = document.createElement('span');
-    let contact = document.createElement('span');
-    let email = document.createElement('span');
-    let image = document.createElement('span');
-    let circular = document.createElement('span');
-    let seat = document.createElement('span');
-
-    li.setAttribute('data-id', doc.id);
-    rank.textContent = doc.data().Rank;
-    code.textContent = doc.data().Code;
-    name.textContent = doc.data().Name;
-    division.textContent = doc.data().Division;
-    district.textContent = doc.data().District;
-    location.textContent = doc.data().Location;
-    contact.textContent = doc.data().Contact;
-    email.textContent = doc.data().Email;
-    image.textContent = doc.data().ImageLink;
-    circular.textContent = doc.data().Circular;
-    seat.textContent = doc.data().SeatPlan;
-
-    li.appendChild(rank);
-    li.appendChild(code);
-    li.appendChild(name);
-    li.appendChild(division);
-    li.appendChild(district);
-    li.appendChild(location);
-    li.appendChild(contact);
-    li.appendChild(email);
-    li.appendChild(image);
-    li.appendChild(circular);
-    li.appendChild(seat);
-
-    list.appendChild(li);
-  }
-  //getting all collection
-  db.collection('National').get().then((snapshot) => {
-    snapshot.docs.forEach(doc => {
-      renderList(doc);
-    })
-  })
 }
 
 form.addEventListener('submit', (e) => {
@@ -97,6 +50,8 @@ form.addEventListener('submit', (e) => {
     title: 'Successfully edited',
     showConfirmButton: false,
     timer: 2000
+  }).then((result) => {
+    location.reload();
   })
   e.preventDefault();//when we add data then web page don't refresh
   //update data in firestore
@@ -110,12 +65,9 @@ form.addEventListener('submit', (e) => {
     Contact: form.contact.value,
     Email: form.email.value,
     ImageLink: form.image.value,
+    Website: form.website.value,
     Circular: form.circular.value,
     SeatPlan: form.seat.value
   })
-  //blank this form field
-  form.rank.value = '';
-  form.name.value = '';
-  form.contact.value = '';
-  form.email.value = '';
+
 })

@@ -14,50 +14,69 @@ let tableData = [];
 function renderList(doc) {
 
   var values = {
-    id: doc.data().Id, code: doc.data().Code, name: doc.data().Name, shift: doc.data().Shift,
-    date: doc.data().Date, time: doc.data().Time
+    Id: doc.data().Id, Code: doc.data().Code, Name: doc.data().Name, Shift: doc.data().Shift,
+    Date: doc.data().Date, Time: doc.data().Time
   };
 
   tableData.push(values);
   //  console.log(values);
 }
 
-
+// Realtime data fetching
 db.collection('School Exam').orderBy('Code', 'asc').onSnapshot(snapshot => {
   let changes = snapshot.docChanges();
   changes.forEach(change => {
     console.log(change.doc.data());
-    if (change.type === 'added') {
+    if (change.type === 'added') { // If data is added
       renderList(change.doc);
-    } else if(change.type === 'removed') {
+    } else if (change.type === "removed") { // If data is removed
+      console.log(change.doc.data().Id);
       let index = 0;
-      for(let data of tableData) {
-        if(data === change.doc.data()) {
-          console.log(index);
+      for (let data of tableData) {
+        if (data.Id == change.doc.data().Id) {
+          console.log("Removed ", index);
+          tableData.splice(index, 1);
+          console.log(tableData);
+          loadTableData(tableData);
+          break;
         }
+        index++;
+      }
+    } else if (change.type === "modified") { // If data is modified
+      console.log(change.doc.data().Id);
+      let index = 0;
+      for (let data of tableData) {
+        if (data.Id == change.doc.data().Id) {
+          console.log("Modified ", index);
+          tableData[index] = change.doc.data();
+          console.log(tableData);
+          loadTableData(tableData);
+          break;
+        }
+        index++;
       }
     }
   });
 
   loadTableData(tableData);
 });
+
 // Adding data into table
 function loadTableData(tableData) {
   const tableBody = document.getElementById('schoolCalendarList');
   let dataHtml = '';
   let index = 0;
   for (let data of tableData) {
-    dataHtml += '<tr><td><input class="list-value" value="' + data.id +
-      '"></td><td><input class="list-value" value="' + data.code +
-      '"></td><td><input class="list-value" value="' + data.name +
-      '"></td><td><input class="list-value" value="' + data.shift +
-      '"></td><td><input class="list-value" value="' + data.date +
-      '"></td><td><input class="list-value" value="' + data.time +
+    dataHtml += '<tr><td><input class="list-value" value="' + data.Id +
+      '"></td><td><input class="list-value" value="' + data.Code +
+      '"></td><td><input class="list-value" value="' + data.Name +
+      '"></td><td><input class="list-value" value="' + data.Shift +
+      '"></td><td><input class="list-value" value="' + data.Date +
+      '"></td><td><input class="list-value" value="' + data.Time +
       '"></td><td><center><img id="removeId' + index + '" style="height: 25px; cursor:pointer;" src="../../image/delete.png"' +
       '></center></td></tr>';
     index++;
   }
-
   tableBody.innerHTML = dataHtml;
 
   // Setting event listener for each item
@@ -79,26 +98,61 @@ function setEventListener() {
 }
 
 function remove(index, value) {
-  console.log(index);
   console.log(value);
-  // Deleting from database
-  db.collection('School Exam').doc(value.id).delete().then(function () {
-    Swal.fire(
-      'Deleted!',
-      'Your file has been deleted.',
-      'success'
-    )
-    tableData.splice(index, 1);
-    loadTableData(tableData);
-  }).catch(function (error) {
-    console.error("Error removing document: ", error);
+  // const swalWithBootstrapButtons = Swal.mixin({
+  //   customClass: {
+  //     confirmButton: 'btn btn-success',
+  //     cancelButton: 'btn btn-danger'
+  //   },
+  //   buttonsStyling: false
+  // })
+
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'No, cancel!',
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#01D307',
+    reverseButtons: true
+  }).then((result) => {
+    if (result.value) {
+
+      // Deleting from database
+      db.collection('School Exam').doc(value.Id).delete().then(function () {
+
+        //confirmation message
+        Swal.fire({
+          icon: 'success',
+          title: 'Successfully deleted',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }).catch(function (error) {
+        console.error("Error removing document: ", error);
+      });
+    } else if (
+      /* Read more about handling dismissals below */
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      //confirmation message
+      Swal.fire({
+        icon: 'error',
+        title: 'Cancelled!',
+        text: 'Your imaginary file is safe :)',
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
   });
 }
 
 
 // Sorting data by code
 export function sortByCode() {
-  let columnName = 'code'
+  let columnName = 'Code'
   sortDirection = !sortDirection;
 
   console.log(columnName);

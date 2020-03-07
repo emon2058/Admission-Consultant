@@ -2,12 +2,21 @@
 	margin: 0;
 	padding: 0;
 }
-nav{
-  font-weight: bold;
-}
+
 title{
 	img: url("../image/Logo.png")
 }
+
+nav{
+  font-weight: bold;
+}
+
+.Logo{
+  height: 35px;
+  padding-top: 3px;
+  padding-bottom: 8px;
+}
+
 body {
 	background-image: url("../image/Admission Consultant.jpg");
 	background-size: 100% 100%;

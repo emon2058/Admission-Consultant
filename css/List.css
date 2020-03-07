@@ -1,7 +1,14 @@
 select {
   border: 2.5px solid #17ac7b9c !important;
 }
-
+.Logo{
+  height: 35px;
+  padding-top: 3px;
+  padding-bottom: 8px;
+}
+.formPadding{
+  padding-top: 25px;
+}
 .formBorder {
   border: 3px solid #17ac7b9c;
   padding-top: 11px;

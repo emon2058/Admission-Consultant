@@ -14,8 +14,9 @@ let tableData = [];
 function renderList(doc) {
 
   var values = {
-    id: doc.data().Id, code: doc.data().Code, name: doc.data().Name, shift: doc.data().Shift,
-    date: doc.data().Date, time: doc.data().Time
+    rank: doc.data().Rank, code: doc.data().Code, name: doc.data().Name, division: doc.data().Division,
+    district: doc.data().District, location: doc.data().Location, contact:doc.data().Contact,
+    email: doc.data().Email, image: doc.data().ImageLink,circular:doc.data().Circular, seat:doc.data().SeatPlan
   };
 
   tableData.push(values);
@@ -23,7 +24,7 @@ function renderList(doc) {
 }
 
 
-db.collection('School Exam').orderBy('Code', 'asc').onSnapshot(snapshot => {
+db.collection('School').orderBy('Code', 'asc').onSnapshot(snapshot => {
   let changes = snapshot.docChanges();
   changes.forEach(change => {
     console.log(change.doc.data());
@@ -43,16 +44,22 @@ db.collection('School Exam').orderBy('Code', 'asc').onSnapshot(snapshot => {
 });
 // Adding data into table
 function loadTableData(tableData) {
-  const tableBody = document.getElementById('schoolCalendarList');
+  const tableBody = document.getElementById('schoolList');
   let dataHtml = '';
   let index = 0;
   for (let data of tableData) {
-    dataHtml += '<tr><td><input class="list-value" value="' + data.id +
+    dataHtml += '<tr><td><input class="list-value" value="' + data.rank +
       '"></td><td><input class="list-value" value="' + data.code +
       '"></td><td><input class="list-value" value="' + data.name +
-      '"></td><td><input class="list-value" value="' + data.shift +
-      '"></td><td><input class="list-value" value="' + data.date +
-      '"></td><td><input class="list-value" value="' + data.time +
+      '"></td><td><input class="list-value" value="' + data.division +
+      '"></td><td><input class="list-value" value="' + data.district +
+      '"></td><td><input class="list-value" value="' + data.location +
+      '"></td><td><input class="list-value" value="' + data.location +
+      '"></td><td><input class="list-value" value="' + data.contact +
+      '"></td><td><input class="list-value" value="' + data.email +
+      '"></td><td><input class="list-value" value="' + data.image +
+      '"></td><td><input class="list-value" value="' + data.circular +
+      '"></td><td><input class="list-value" value="' + data.seat +
       '"></td><td><center><img id="removeId' + index + '" style="height: 25px; cursor:pointer;" src="../../image/delete.png"' +
       '></center></td></tr>';
     index++;
@@ -82,7 +89,7 @@ function remove(index, value) {
   console.log(index);
   console.log(value);
   // Deleting from database
-  db.collection('School Exam').doc(value.id).delete().then(function () {
+  db.collection('School').doc(value.id).delete().then(function () {
     Swal.fire(
       'Deleted!',
       'Your file has been deleted.',

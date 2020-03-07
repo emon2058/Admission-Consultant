@@ -8,33 +8,7 @@ var db = firebase.firestore();
 const list = document.querySelector('#List'); //get id = list from html file and create const list.
 const form = document.querySelector('#data-form');
 
-//create element and render list
-function renderList(doc) {
-  let li = document.createElement('li');
-  let id = document.createElement('span');
-  let code = document.createElement('span');
-  let name = document.createElement('span');
-  let shift = document.createElement('span');
-  let time = document.createElement('span');
-  let date = document.createElement('span');
 
-  li.setAttribute('data-id', doc.id);
-  id.textContent = doc.data().Id;
-  code.textContent = doc.data().Code;
-  name.textContent = doc.data().Name;
-  shift.textContent = doc.data().Shift;
-  time.textContent = doc.data().Time;
-  date.textContent = doc.data().Date;
-
-  li.appendChild(id);
-  li.appendChild(code);
-  li.appendChild(name);
-  li.appendChild(shift);
-  li.appendChild(time);
-  li.appendChild(date);
-
-  list.appendChild(li);
-}
 
 //saving data
 form.addEventListener('submit', (e) => {
@@ -63,13 +37,3 @@ form.addEventListener('submit', (e) => {
   form.date.value = '';
 })
 
-// real-time listener
-db.collection('University Exam').orderBy('Code', 'asc').onSnapshot(snapshot => {
-  let changes = snapshot.docChanges();
-  changes.forEach(change => {
-    console.log(change.doc.data());
-    if (change.type == 'added') {
-      renderList(change.doc);
-    }
-  });
-});

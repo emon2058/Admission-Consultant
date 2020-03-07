@@ -1,60 +1,12 @@
-import {firebaseConfig} from '../../Config/FirebaseConfig.js'
+// Firebase configuration
+import { firebaseConfig } from '../../Config/FirebaseConfig.js'
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+//firebase.analytics();
 var db = firebase.firestore();
-//get id from html file
-const list = document.querySelector('#List');
 const form = document.querySelector('#data-form');
 
-//create element and render list
-function renderList(doc) {
-  let li = document.createElement('li');
-  let rank = document.createElement('span');
-  let code = document.createElement('span');
-  let name = document.createElement('span');
-  let division = document.createElement('span');
-  let district = document.createElement('span');
-  let location = document.createElement('span');
-  let contact = document.createElement('span');
-  let email = document.createElement('span');
-  let image = document.createElement('span');
-  let circular = document.createElement('span');
-  let seat = document.createElement('span');
-  //get the data value individually
-  li.setAttribute('data-id', doc.id);
-  rank.textContent = doc.data().Rank;
-  code.textContent = doc.data().Code;
-  name.textContent = doc.data().Name;
-  division.textContent = doc.data().Division;
-  district.textContent = doc.data().District;
-  location.textContent = doc.data().Location;
-  contact.textContent = doc.data().Contact;
-  email.textContent = doc.data().Email;
-  image.textContent = doc.data().ImageLink;
-  circular.textContent = doc.data().Circular;
-  seat.textContent = doc.data().SeatPlan;
-  //The data will be listed below
-  li.appendChild(rank);
-  li.appendChild(code);
-  li.appendChild(name);
-  li.appendChild(division);
-  li.appendChild(district);
-  li.appendChild(location);
-  li.appendChild(contact);
-  li.appendChild(email);
-  li.appendChild(image);
-  li.appendChild(circular);
-  li.appendChild(seat);
-
-  list.appendChild(li);
-}
-//get all data from firestore
-db.collection('School').get().then((snapshot) => {
-  snapshot.docs.forEach(doc => {
-    renderList(doc);
-  })
-})
 
 //save the data in firestore
 form.addEventListener('submit', (e) => {
@@ -76,6 +28,7 @@ form.addEventListener('submit', (e) => {
     Contact: form.contact.value,
     Email: form.email.value,
     ImageLink: form.image.value,
+    Website: form.website.value,
     Circular: form.circular.value,
     SeatPlan: form.seat.value
   })
@@ -85,4 +38,9 @@ form.addEventListener('submit', (e) => {
   form.name.value = '';
   form.contact.value = '';
   form.email.value = '';
+  form.image.value = '';
+  form.website.value = '';
+  form.location.value = '';
+  form.circular.value = '';
+  form.seat.value = '';
 })
